@@ -106,7 +106,7 @@ export default class Route extends React.Component {
   render() {
     const { routesProps } = this.context;
     // eslint-disable-next-line
-    const { path, component, index, ...rest } = this.props;
+    const { path, exact, component, index, ...rest } = this.props;
     if (!this._isMounted) {
       //eslint-disable-next-line
       if (__DEV__) {
@@ -114,7 +114,9 @@ export default class Route extends React.Component {
         this.throwsIfUseNestedRoute();
       }
       routesProps.push({
-        path,
+        exact,
+        index,
+        path: pathnameAdapter(path),
         shouldRedirectToIndex: this.shouldRedirectToIndex,
         isRouteStillShowed: this.isRouteStillShowed,
         isTheCurrentPathMatched: this.isTheCurrentPathMatched,

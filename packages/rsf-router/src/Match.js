@@ -87,6 +87,36 @@ export default class Match extends React.Component {
 
 //eslint-disable-next-line
 if (__DEV__) {
+  Match.prototype.componentDidMount = function() {
+    this.warningIfHasIndexPathButRedirected();
+  };
+
+  Match.prototype.warningIfHasIndexPathButRedirected = function() {
+    // <Route path="/test" index /> index 和 <Route path="/" index/> 冲突
+    // 会访问 / 会从定向到 /test
+    let { routesProps } = this.context;
+    const indexsPath = [];
+    routesProps.forEach(r => {
+      const { index, path } = r;
+      if (path === '/' || index) {
+        indexsPath.push(path);
+      }
+    });
+    if (indexsPath.length > 1) {
+      let errStr = `Expected the only one index route path to be matched，but there are ${
+        indexsPath.length
+      } matched: \r\n`;
+      indexsPath.forEach(indexPath => {
+        if (indexPath === '/') {
+          errStr += `<Route path="${indexPath}" component={View} />\r\n`;
+        } else {
+          errStr += `<Route path="${indexPath}" component={View} index />\r\n`;
+        }
+      });
+      throw new Error(errStr);
+    }
+  };
+
   Match.prototype.throwsIfPathMatchMoreThanOne = function() {
     let {
       history: {
@@ -100,15 +130,21 @@ if (__DEV__) {
       let { exact, path } = r;
       path = pathnameAdapter(path, '/');
       if (!exact && !!pathname.match(path)) {
-        matchs.push(path);
+        matchs.push(pathnameAdapter(path));
       }
     });
     if (matchs.length > 1) {
-      throw new Error(
-        `Expected the only one route path to be matched，but there more than ${
-          matchs.length
-        } matched: ${matchs}`
-      );
+      let errStr = `Expected the only one route path to be matched，but there are ${
+        matchs.length
+      } matched: \r\n`;
+      matchs.forEach(path => {
+        errStr += `<Route path="${path}" component={View} />\r\n`;
+      });
+      errStr += 'Or you should use <Route /> below: \r\n';
+      matchs.forEach(path => {
+        errStr += `<Route path="${path}" exact />\r\n`;
+      });
+      throw new Error(errStr);
     }
   };
 }
