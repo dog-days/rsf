@@ -21,7 +21,19 @@ export default class Route extends React.Component {
 
   componentDidMount() {
     this._isMounted = true;
+    const { path } = this.props;
+    const {
+      history: { replace },
+    } = this.context;
+    if (this.shouldRedirectToIndex()) {
+      replace(path);
+    }
   }
+
+  shouldRedirectToIndex = () => {
+    const { index, path } = this.props;
+    return index && this.pathname === '/' && path !== '/';
+  };
 
   setComponent(flag) {
     let { component: Com } = this.props;
@@ -94,7 +106,7 @@ export default class Route extends React.Component {
   render() {
     const { routesProps } = this.context;
     // eslint-disable-next-line
-    const { path, component, ...rest } = this.props;
+    const { path, component, index, ...rest } = this.props;
     if (!this._isMounted) {
       //eslint-disable-next-line
       if (__DEV__) {
@@ -103,6 +115,7 @@ export default class Route extends React.Component {
       }
       routesProps.push({
         path,
+        shouldRedirectToIndex: this.shouldRedirectToIndex,
         isRouteStillShowed: this.isRouteStillShowed,
         isTheCurrentPathMatched: this.isTheCurrentPathMatched,
         isPrevPathMatched: this.isPrevPathMatched,

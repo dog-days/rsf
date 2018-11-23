@@ -14,16 +14,22 @@ export default class Match extends React.Component {
 
   state = {};
 
+  get pathname() {
+    return this.context.history.location.pathname;
+  }
+
   renderTheRouteComponentToRoute() {
     //eslint-disable-next-line
     __DEV__ && this.throwsIfPathMatchMoreThanOne();
     const { routesProps } = this.context;
 
     let NoMatchComponent = NoMatch;
-
+    // 是否重定向到主页
+    this.reDirectedIndexPath = undefined;
     const isMatched = routesProps
       .map(r => {
         const {
+          shouldRedirectToIndex,
           path,
           isRouteStillShowed,
           isTheCurrentPathMatched,
@@ -33,7 +39,10 @@ export default class Match extends React.Component {
           component: Com,
         } = r;
 
-        if (isPrevPathMatched()) {
+        if (shouldRedirectToIndex()) {
+          // 会重定向到 设定主页
+          return true;
+        } else if (isPrevPathMatched()) {
           // pathname 匹配到上一个访问的页面
           // 那就不能返回 404 No Matched
           return true;
@@ -44,8 +53,7 @@ export default class Match extends React.Component {
           //然后渲染当前的匹配到的页面
           renderComponent();
           return true;
-        }
-        if (path === undefined) {
+        } else if (path === undefined) {
           // 无匹配到的页面，返回 404 No Matched
           NoMatchComponent = Com;
         }
@@ -56,6 +64,16 @@ export default class Match extends React.Component {
       return NoMatchComponent;
     }
     return false;
+  }
+
+  redirectToIndex() {
+    const {
+      history: { replace },
+    } = this.context;
+    if (this.reDirectedIndexPath) {
+      replace(this.reDirectedIndexPath);
+      this.reDirectedIndexPath = undefined;
+    }
   }
 
   render() {

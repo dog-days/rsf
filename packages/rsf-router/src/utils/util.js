@@ -88,6 +88,9 @@ export function pathnameAdapter(pathname, endStr = '') {
   if (__DEV__ && typeof pathname !== 'string') {
     throw new TypeError('Expected the pathanme to be a string.');
   }
+  if (pathname === '/') {
+    return pathname;
+  }
   const reStr = pathname
     .split('/')
     .filter(p => p)
