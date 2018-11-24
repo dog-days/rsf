@@ -1,8 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import { pathnameAdapter } from './utils/util';
-
 let Warnings;
 
 //eslint-disable-next-line
@@ -70,11 +68,10 @@ if (__DEV__) {
       let { routesProps } = this.context;
       const matchs = [];
       routesProps.forEach(r => {
-        let { isPathMatched, path } = r;
+        let { getRouteMatchedResult, path } = r;
         if (path !== undefined) {
-          path = pathnameAdapter(path, '/');
-          if (isPathMatched()) {
-            matchs.push(pathnameAdapter(path));
+          if (getRouteMatchedResult()) {
+            matchs.push(path);
           }
         }
       });

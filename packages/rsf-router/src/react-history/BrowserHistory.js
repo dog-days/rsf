@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import createBrowserHistory from 'history/createBrowserHistory';
 
-import { parsePathname } from '../utils/util';
+import { parsePathname } from '../matchPath';
 
 /**
  * Manages session history using the HTML5 history API including
@@ -48,8 +48,12 @@ class BrowserHistory extends React.Component {
     }
     const { children } = this.props;
     //新增一个location.params
-    const { location } = this.history;
-    location.params = parsePathname(location.pathname);
+    const {
+      location: { pathname },
+    } = this.history;
+    this.history.match = {
+      params: parsePathname(pathname),
+    };
     return <span>{children}</span>;
   }
 }

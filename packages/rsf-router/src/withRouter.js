@@ -11,11 +11,11 @@ export default function withRouter(Component) {
       const { history } = this.context;
       let routerProps = {};
       if (history) {
-        const { location } = history;
+        const { location, match } = history;
         routerProps = {
           history,
           location,
-          params: location.params,
+          match,
         };
       }
       return <Component {...this.props} {...routerProps} />;
