@@ -26,12 +26,15 @@ export default class BrowserRouter extends React.Component {
 
   render() {
     const { children, ...rest } = this.props;
-    return (
-      <History {...rest}>
-        {children}
-        {// eslint-disable-next-line
-        __DEV__ && <Warnings />}
-      </History>
-    );
+    // eslint-disable-next-line
+    if (__DEV__) {
+      return (
+        <History {...rest}>
+          {children}
+          <Warnings />
+        </History>
+      );
+    }
+    return <History {...rest}>{children}</History>;
   }
 }

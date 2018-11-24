@@ -2,7 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import createBrowserHistory from 'history/createBrowserHistory';
 
-import { history as historyType } from '../react-history/PropTypes';
 import { parsePathname } from '../utils/util';
 
 /**
@@ -11,7 +10,7 @@ import { parsePathname } from '../utils/util';
  */
 class BrowserHistory extends React.Component {
   static childContextTypes = {
-    history: historyType.isRequired,
+    history: PropTypes.object.isRequired,
   };
 
   getChildContext() {

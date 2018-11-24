@@ -8,9 +8,7 @@ import { terser } from 'rollup-plugin-terser';
 import pkg from './package.json';
 
 //babel需要再 commonjs plugin 之前配置
-const commonjsPlugin = commonjs({
-  nclude: 'node_modules/**',
-});
+const commonjsPlugin = commonjs();
 
 function createCommonConfigByInput(input, fileName, umdName) {
   return [

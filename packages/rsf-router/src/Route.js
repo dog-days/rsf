@@ -14,6 +14,14 @@ function isPathMatched(pathname, path, isExact) {
     !isExact && !!pathname.match(new RegExp(`^${path}`));
   return isExactAndMatched || isNotExactButMatched;
 }
+/**
+ * 配置路由
+ * props.path 为 undefined 时，需要放在所有 <Route /> 后面，才会正常执行 404 No Match。
+ * @props {String} path 路由路径
+ * @props {Function} component react component
+ * @props {Boolean} exact 是否精确匹配
+ * @props {Boolean} index 是否访问 “/”，重定向到此路由
+ */
 export default class Route extends React.Component {
   static displayName = 'Route';
   static contextTypes = {
@@ -24,10 +32,6 @@ export default class Route extends React.Component {
 
   componentDidMount() {
     this._isMounted = true;
-    //eslint-disable-next-line
-    if (__DEV__) {
-      this.throwsIfUseNestedRoute();
-    }
     const { path } = this.props;
     const {
       history: { replace },
@@ -62,6 +66,9 @@ export default class Route extends React.Component {
   }
 
   render() {
+    if (!this.context.history) {
+      return false;
+    }
     // eslint-disable-next-line
     const { path, exact, component: Com, index, ...rest } = this.props;
     if (!this._isMounted) {
@@ -95,8 +102,33 @@ if (__DEV__) {
     isInsideRoute: PropTypes.bool,
   };
 
+  Route.prototype._componentDidMount = Route.prototype.componentDidMount;
+  Route.prototype.componentDidMount = function() {
+    this.throws();
+    this._componentDidMount();
+  };
+
+  Route.prototype.componentDidUpdate = function() {
+    this.throws();
+  };
+
   Route.prototype.getChildContext = function() {
     return { isInsideRoute: true };
+  };
+
+  Route.prototype.throws = function() {
+    this.throwsIfRouterContextNotDefined();
+    this.throwsIfUseNestedRoute();
+  };
+
+  Route.prototype.throwsIfRouterContextNotDefined = function() {
+    if (!this.context.history) {
+      throw new Error(
+        `You should not use \r\n<Route path="${
+          this.props.path
+        }" component={View} /> \r\noutside a <Router>`
+      );
+    }
   };
 
   Route.prototype.throwsIfUseNestedRoute = function() {
