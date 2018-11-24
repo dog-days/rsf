@@ -51,7 +51,7 @@ class BrowserHistory extends React.Component {
     //新增一个location.params
     const { location } = this.history;
     location.params = parsePathname(location.pathname);
-    return children;
+    return <span>{children}</span>;
   }
 }
 // eslint-disable-next-line

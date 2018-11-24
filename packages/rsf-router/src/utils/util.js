@@ -31,11 +31,11 @@ export function converToCamelbakStr(str) {
     .join('');
 }
 /**
- * 根据viewId和contollerId获取url的配置参数
- * url风格定义如下:
+ * 根据 viewId 和 layoutId 获取url的配置参数
+ * url 风格定义如下:
  * pathname=/main/about-me/id/100/app-id/aiermu
  * 上面的pathname会解析为
- * {contollerId: 'main',viewId: 'aboutMe',id: "100",appId: 'aiermu','app-id': 'aiermu' }
+ * {layoutId: 'main',viewId: 'aboutMe',id: "100",appId: 'aiermu','app-id': 'aiermu' }
  * @param {String} pathanme history中的location.pathname || location.hash，不是浏览器的location
  * @return {Object} { layoutId: xx, viewId: xx, ...params }
  */

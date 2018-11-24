@@ -29,7 +29,6 @@
   },
   "dependencies": {
     "prop-types": "^15.6.2",
-    "create-react-context": "^0.2.3",
     "history": "^4.7.2"
   },
   "devDependencies": {
