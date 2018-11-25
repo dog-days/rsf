@@ -64,16 +64,16 @@ export function getMatchedResult(pathname, options) {
     return;
   }
   const isOriginalExact = pathname === path;
-  pathname = pathnameAdapter(pathname) + '/';
-  path = pathnameAdapter(path) + '/';
-  const isExactAndMatched = exact && pathname === path;
+  const pathnameA = pathnameAdapter(pathname) + '/';
+  const pathA = pathnameAdapter(path) + '/';
+  const isExactAndMatched = exact && pathnameA === path;
   const isNotExactButMatched =
-    !exact && !!pathname.match(new RegExp(`^${path}`));
+    !exact && !!pathnameA.match(new RegExp(`^${pathA}`));
   const isMatched = isExactAndMatched || isNotExactButMatched;
   if (isMatched) {
     return {
       params: parsePathname(pathname),
-      url: pathnameAdapter(path),
+      url: path,
       path,
       isExact: isOriginalExact,
     };
