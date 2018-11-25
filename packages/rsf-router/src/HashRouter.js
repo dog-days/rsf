@@ -33,3 +33,5 @@ if (__DEV__) {
 }
 
 export default HashRouter;
+
+export * from './commonExports';

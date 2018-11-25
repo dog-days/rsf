@@ -20,6 +20,8 @@ function createCommonConfigByInput(input, fileName, umdName) {
         ...Object.keys(pkg.dependencies || {}),
         ...Object.keys(pkg.peerDependencies || {}),
         'history/createBrowserHistory',
+        'history/createHashHistory',
+        'history/createMemoryHistory',
       ],
       plugins: [
         //babel需要再 commonjs plugin 之前配置
@@ -39,6 +41,8 @@ function createCommonConfigByInput(input, fileName, umdName) {
         ...Object.keys(pkg.dependencies || {}),
         ...Object.keys(pkg.peerDependencies || {}),
         'history/createBrowserHistory',
+        'history/createHashHistory',
+        'history/createMemoryHistory',
       ],
       plugins: [
         babel({ exclude: 'node_modules/**' }),
@@ -57,7 +61,7 @@ function createCommonConfigByInput(input, fileName, umdName) {
         format: 'umd',
         name: umdName,
         indent: false,
-        sourcemap: true,
+        sourcemap: false,
       },
       external: ['react', 'react-dom', 'prop-types'],
       globals: {
@@ -87,7 +91,7 @@ function createCommonConfigByInput(input, fileName, umdName) {
         format: 'umd',
         name: umdName,
         indent: false,
-        sourcemap: true,
+        sourcemap: false,
       },
       external: ['react', 'react-dom', 'prop-types'],
       globals: {
@@ -121,6 +125,21 @@ function createCommonConfigByInput(input, fileName, umdName) {
 
 export default [
   ...createCommonConfigByInput('src/index.js', 'rsf-router', 'RsfRouter'),
+  ...createCommonConfigByInput(
+    'src/BrowserRouter.js',
+    'browser-router',
+    'RsfBrowserRouter'
+  ),
+  ...createCommonConfigByInput(
+    'src/HashRouter.js',
+    'hash-router',
+    'RsfHashRouter'
+  ),
+  ...createCommonConfigByInput(
+    'src/MemoryRouter.js',
+    'memory-router',
+    'RsfMemoryRouter'
+  ),
   ...createCommonConfigByInput(
     'src/PathToRegexpMatchPath.js',
     'PathToRegexpMatchPath',
