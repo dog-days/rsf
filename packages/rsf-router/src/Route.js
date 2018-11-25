@@ -84,6 +84,7 @@ export default class Route extends React.Component {
           history={history}
           location={history.location}
           match={history.match}
+          prevLocation={history.prevLocation}
         />
       );
     }

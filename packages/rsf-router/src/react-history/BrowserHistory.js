@@ -54,6 +54,9 @@ class BrowserHistory extends React.Component {
     this.history.match = {
       params: parsePathname(pathname),
     };
+    this.history.prevLocation = this.prevLocation;
+
+    this.prevLocation = this.history.location;
     return <span>{children}</span>;
   }
 }
