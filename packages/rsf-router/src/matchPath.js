@@ -58,7 +58,8 @@ export function parsePathname(pathname) {
   return params;
 }
 
-export function getMatchedResult(pathname, path, exact) {
+export function getMatchedResult(pathname, options) {
+  let { path, exact } = options;
   if (path === undefined) {
     return;
   }
