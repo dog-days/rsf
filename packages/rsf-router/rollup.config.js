@@ -121,4 +121,9 @@ function createCommonConfigByInput(input, fileName, umdName) {
 
 export default [
   ...createCommonConfigByInput('src/index.js', 'rsf-router', 'RsfRouter'),
+  ...createCommonConfigByInput(
+    'src/PathToRegexpMatchPath.js',
+    'PathToRegexpMatchPath',
+    'PathToRegexpMatchPath'
+  ),
 ];

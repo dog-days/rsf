@@ -29,6 +29,7 @@
   },
   "dependencies": {
     "prop-types": "^15.6.2",
+    "path-to-regexp": "^2.4.0",
     "history": "^4.7.2"
   },
   "devDependencies": {

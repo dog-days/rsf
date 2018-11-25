@@ -45,9 +45,8 @@ export default class Route extends React.Component {
   }
 
   getRouteMatchedResult = () => {
-    const { exact, path } = this.props;
     const { getRouteMatchedResult = getMatchedResult } = this.context;
-    return getRouteMatchedResult(this.pathname, path, exact);
+    return getRouteMatchedResult(this.pathname, this.props);
   };
 
   shouldRenderNoMatch() {
@@ -65,7 +64,7 @@ export default class Route extends React.Component {
       return false;
     }
     // eslint-disable-next-line
-    const { path, exact, component: Com, index, ...rest } = this.props;
+    const { path, exact, component: Com, index, title } = this.props;
     const { history, routesProps } = this.context;
     if (!this._isMounted) {
       routesProps.push({
@@ -77,10 +76,13 @@ export default class Route extends React.Component {
     }
     const matchResult = this.getRouteMatchedResult();
     if (matchResult || (path === undefined && this.shouldRenderNoMatch())) {
+      if (title) {
+        document.title = title;
+      }
       history.match = matchResult;
       return (
         <Com
-          {...rest}
+          title={title}
           history={history}
           location={history.location}
           match={history.match}
