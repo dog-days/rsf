@@ -125,6 +125,22 @@ function createCommonConfigByInput(input, fileName, umdName) {
 
 export default [
   ...createCommonConfigByInput('src/index.js', 'rsf-router', 'RsfRouter'),
+  ...createCommonConfigByInput('src/Router.js', 'router', 'Router'),
+  ...createCommonConfigByInput(
+    'src/BrowserRouter.js',
+    'browser-router',
+    'BrowserRouter'
+  ),
+  ...createCommonConfigByInput(
+    'src/HashRouter.js',
+    'hash-router',
+    'HashRouter'
+  ),
+  ...createCommonConfigByInput(
+    'src/MemoryRouter.js',
+    'memory-router',
+    'MemoryRouter'
+  ),
   ...createCommonConfigByInput(
     'src/BrowserRouter.js',
     'browser-router',
@@ -142,7 +158,7 @@ export default [
   ),
   ...createCommonConfigByInput(
     'src/PathToRegexpMatchPath.js',
-    'PathToRegexpMatchPath',
+    'path-to-regexp-match-path',
     'PathToRegexpMatchPath'
   ),
 ];
