@@ -67,6 +67,8 @@
     "bootstrap": "lerna bootstrap --ignore-scripts",
     "build-publish": "lerna publish",
     "prettier": "prettier --write './**/*(*.js|*.jsx|*.less|*.css)'",
-    "router": "npm run start --prefix examples/router"
+    "router-code-splitting": "npm run start --prefix examples/router-code-splitting",
+    "router-basic-react@15.4.2": "npm run start --prefix examples/router-basic-react@15.4.2",
+    "router-basic-react@16.6.3": "npm run start --prefix examples/router-basic-react@16.6.3"
   }
 }
