@@ -27,7 +27,10 @@
     "react-dom": ">=16.0.0"
   },
   "dependencies": {
-    "prop-types": "^15.6.2"
+    "prop-types": "^15.6.2",
+    "redux": "^4.0.1",
+    "redux-mutation": "0.0.4",
+    "react-redux": "^5.1.1"
   },
   "devDependencies": {
     "@babel/core": "^7.0.0",
