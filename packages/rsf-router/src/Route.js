@@ -100,7 +100,8 @@ if (__DEV__) {
   Route.propTypes = {
     path: PropTypes.string,
     exact: PropTypes.bool,
-    component: PropTypes.func.isRequired,
+    component: PropTypes.oneOfType([PropTypes.func, PropTypes.object])
+      .isRequired,
   };
 
   Route.childContextTypes = {
