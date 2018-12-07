@@ -142,21 +142,6 @@ export default [
     'MemoryRouter'
   ),
   ...createCommonConfigByInput(
-    'src/BrowserRouter.js',
-    'browser-router',
-    'RsfBrowserRouter'
-  ),
-  ...createCommonConfigByInput(
-    'src/HashRouter.js',
-    'hash-router',
-    'RsfHashRouter'
-  ),
-  ...createCommonConfigByInput(
-    'src/MemoryRouter.js',
-    'memory-router',
-    'RsfMemoryRouter'
-  ),
-  ...createCommonConfigByInput(
     'src/PathToRegexpMatchPath.js',
     'path-to-regexp-match-path',
     'PathToRegexpMatchPath'
