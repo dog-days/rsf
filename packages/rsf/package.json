@@ -32,7 +32,8 @@
     "prop-types": "^15.6.2",
     "react-redux": "^5.1.1",
     "redux": "^4.0.1",
-    "redux-mutation": "0.0.5"
+    "redux-mutation": "0.0.5",
+    "rsf-router": "0.0.1"
   },
   "devDependencies": {
     "@babel/core": "^7.0.0",
