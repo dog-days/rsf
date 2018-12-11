@@ -1,0 +1,6 @@
+.ant-menu-horizontal > .ant-menu-item > .main-layout__menu-link {
+  display: inline-block;
+}
+.main-layout__content {
+  padding: 16px;
+}
