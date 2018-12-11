@@ -27,23 +27,28 @@
     "react-dom": ">=16.0.0"
   },
   "dependencies": {
+    "axios": "^0.18.0",
+    "lodash": "^4.17.11",
     "prop-types": "^15.6.2",
+    "react-redux": "^5.1.1",
     "redux": "^4.0.1",
-    "redux-mutation": "0.0.4",
-    "react-redux": "^5.1.1"
+    "redux-mutation": "0.0.5",
+    "rsf-router": "^0.0.1"
   },
   "devDependencies": {
     "@babel/core": "^7.0.0",
     "@babel/preset-env": "^7.0.0",
+    "@babel/preset-react": "^7.0.0",
     "@babel/register": "^7.0.0",
     "babel-core": "^7.0.0-bridge.0",
     "babel-jest": "^23.6.0",
+    "babel-plugin-dev-expression": "^0.2.1",
     "cross-env": "^5.1.1",
     "jest": "^23.6.0",
     "react": "^16.6.3",
     "react-dom": "^16.6.3",
     "rimraf": "^2.6.2",
-    "rollup": "^0.66.6",
+    "rollup": "^0.67.4",
     "rollup-plugin-babel": "^4.0.3",
     "rollup-plugin-commonjs": "^9.2.0",
     "rollup-plugin-node-resolve": "^3.4.0",
@@ -55,6 +60,6 @@
     "test": "cross-env NODE_ENV=TEST jest --no-cache",
     "clean": "rimraf lib dist es",
     "build": "npm run clean && rollup -c",
-    "build-watch": "rollup -c --watch"
+    "build-watch": "npm run clean && rollup -c --watch"
   }
 }

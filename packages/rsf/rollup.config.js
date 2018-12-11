@@ -1,14 +1,25 @@
-//nodeResolve是必须的，要不watch模式会报错。
+// nodeResolve是必须的，要不watch模式会报错。
 import nodeResolve from 'rollup-plugin-node-resolve';
 import commonjs from 'rollup-plugin-commonjs';
 import babel from 'rollup-plugin-babel';
-import replace from 'rollup-plugin-replace';
-import { terser } from 'rollup-plugin-terser';
+// import replace from 'rollup-plugin-replace';
+// import { terser } from 'rollup-plugin-terser';
 
 import pkg from './package.json';
 
+//babel需要再 commonjs plugin 之前配置
 const commonjsPlugin = commonjs({
-  include: 'node_modules/**',
+  // include: /node_modules/,
+  // include: [
+  //   /node_modules\/prop-types/,
+  //   /node_modules\/hoist-non-react-statics/,
+  //   /node_modules\/invariant/,
+  //   /node_modules\/react-is/,
+  //   /node_modules\/warning/,
+  // ],
+  // namedExports: {
+  //   'node_modules/react-js/index.js': ['isValidElementType'],
+  // },
 });
 
 function createCommonConfigByInput(input, fileName, umdName) {
@@ -22,11 +33,10 @@ function createCommonConfigByInput(input, fileName, umdName) {
         ...Object.keys(pkg.peerDependencies || {}),
       ],
       plugins: [
+        nodeResolve(),
+        //babel需要再 commonjs plugin 之前配置
+        babel({ exclude: 'node_modules/**' }),
         commonjsPlugin,
-        nodeResolve({
-          jsnext: true,
-        }),
-        babel(),
       ],
     },
 
@@ -39,79 +49,77 @@ function createCommonConfigByInput(input, fileName, umdName) {
         ...Object.keys(pkg.peerDependencies || {}),
       ],
       plugins: [
+        nodeResolve(),
+        babel({ exclude: 'node_modules/**' }),
         commonjsPlugin,
-        nodeResolve({
-          jsnext: true,
-        }),
-        babel(),
       ],
     },
 
-    // UMD Development
-    {
-      input,
-      output: {
-        file: `dist/${fileName}.js`,
-        format: 'umd',
-        name: umdName,
-        indent: false,
-        sourcemap: true,
-      },
-      external: ['react', 'react-dom'],
-      globals: {
-        React: 'React',
-        ReactDOM: 'ReactDOM',
-      },
-      plugins: [
-        nodeResolve({
-          jsnext: true,
-        }),
-        commonjsPlugin,
-        babel({
-          exclude: 'node_modules/**',
-        }),
-        replace({
-          'process.env.NODE_ENV': JSON.stringify('development'),
-        }),
-      ],
-    },
+    // // UMD Development
+    // {
+    //   input,
+    //   output: {
+    //     file: `dist/${fileName}.js`,
+    //     format: 'umd',
+    //     name: umdName,
+    //     indent: false,
+    //     sourcemap: false,
+    //   },
 
-    // UMD Production
-    {
-      input,
-      output: {
-        file: `dist/${fileName}.min.js`,
-        format: 'umd',
-        name: umdName,
-        indent: false,
-        sourcemap: true,
-      },
-      external: ['react', 'react-dom'],
-      globals: {
-        React: 'React',
-        ReactDOM: 'ReactDOM',
-      },
-      plugins: [
-        nodeResolve({
-          jsnext: true,
-        }),
-        commonjsPlugin,
-        babel({
-          exclude: 'node_modules/**',
-        }),
-        replace({
-          'process.env.NODE_ENV': JSON.stringify('production'),
-        }),
-        terser({
-          compress: {
-            pure_getters: true,
-            unsafe: true,
-            unsafe_comps: true,
-            warnings: false,
-          },
-        }),
-      ],
-    },
+    //   external: ['react', 'react-dom'],
+    //   globals: {
+    //     React: 'React',
+    //     ReactDOM: 'ReactDOM',
+    //   },
+    //   plugins: [
+    //     // replace({
+    //     //   'process.env.NODE_ENV': JSON.stringify('development'),
+    //     // }),
+    //     babel({
+    //       exclude: 'node_modules/**',
+    //     }),
+    //     nodeResolve({
+    //       jsnext: true,
+    //       main: true,
+    //     }),
+    //     commonjsPlugin,
+    //   ],
+    // },
+
+    // // UMD Production
+    // {
+    //   input,
+    //   output: {
+    //     file: `dist/${fileName}.min.js`,
+    //     format: 'umd',
+    //     name: umdName,
+    //     indent: false,
+    //     sourcemap: false,
+    //   },
+    //   external: ['react', 'react-dom'],
+    //   globals: {
+    //     React: 'React',
+    //     ReactDOM: 'ReactDOM',
+    //   },
+    //   plugins: [
+    //     nodeResolve(),
+    //     replace({
+    //       'process.env.NODE_ENV': JSON.stringify('production'),
+    //     }),
+    //     babel({
+    //       exclude: 'node_modules/**',
+    //     }),
+    //     commonjsPlugin,
+    //     terser({
+    //       compress: {
+    //         pure_getters: true,
+    //         unsafe: true,
+    //         unsafe_comps: true,
+    //         warnings: false,
+    //       },
+    //     }),
+    //   ],
+    // },
   ];
 }
 
