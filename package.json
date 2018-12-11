@@ -52,6 +52,7 @@
     "react-scripts": "2.1.0",
     "redux": "^4.0.1",
     "redux-logger": "^3.0.6",
+    "redux-mutation": "^0.0.5",
     "rimraf": "^2.6.2",
     "rollup": "^0.67.4",
     "rollup-plugin-babel": "^4.0.3",
