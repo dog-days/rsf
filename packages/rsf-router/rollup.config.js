@@ -1,4 +1,3 @@
-//nodeResolve是必须的，要不watch模式会报错。
 import nodeResolve from 'rollup-plugin-node-resolve';
 import commonjs from 'rollup-plugin-commonjs';
 import babel from 'rollup-plugin-babel';
@@ -8,14 +7,22 @@ import { terser } from 'rollup-plugin-terser';
 import pkg from './package.json';
 
 //babel需要再 commonjs plugin 之前配置
-const commonjsPlugin = commonjs();
+const commonjsPlugin = commonjs({
+  include: /node_modules/,
+});
 
 function createCommonConfigByInput(input, fileName, umdName) {
   return [
     // CommonJS
     {
       input,
-      output: { file: `lib/${fileName}.js`, format: 'cjs', indent: false },
+      output: {
+        file: `lib/${fileName}.js`,
+        format: 'cjs',
+        indent: false,
+        // 消除 bundle['default'] to access the default export
+        exports: 'named',
+      },
       external: [
         ...Object.keys(pkg.dependencies || {}),
         ...Object.keys(pkg.peerDependencies || {}),
@@ -55,6 +62,12 @@ function createCommonConfigByInput(input, fileName, umdName) {
 
     // UMD Development
     {
+      onwarn(warning, warn) {
+        // skip certain warnings
+        if (warning.code === 'MISSING_GLOBAL_NAME') return;
+        // Use default for everything else
+        warn(warning);
+      },
       input,
       output: {
         file: `dist/${fileName}.js`,
@@ -62,13 +75,10 @@ function createCommonConfigByInput(input, fileName, umdName) {
         name: umdName,
         indent: false,
         sourcemap: false,
+        // 消除 bundle['default'] to access the default export
+        exports: 'named',
       },
-      external: ['react', 'react-dom', 'prop-types'],
-      globals: {
-        React: 'React',
-        ReactDOM: 'ReactDOM',
-        PropTypes: 'PropTypes',
-      },
+      external: ['react', 'react-dom'],
       plugins: [
         babel({
           exclude: 'node_modules/**',
@@ -85,6 +95,12 @@ function createCommonConfigByInput(input, fileName, umdName) {
 
     // UMD Production
     {
+      onwarn(warning, warn) {
+        // skip certain warnings
+        if (warning.code === 'MISSING_GLOBAL_NAME') return;
+        // Use default for everything else
+        warn(warning);
+      },
       input,
       output: {
         file: `dist/${fileName}.min.js`,
@@ -92,13 +108,10 @@ function createCommonConfigByInput(input, fileName, umdName) {
         name: umdName,
         indent: false,
         sourcemap: false,
+        // 消除 bundle['default'] to access the default export
+        exports: 'named',
       },
-      external: ['react', 'react-dom', 'prop-types'],
-      globals: {
-        React: 'React',
-        ReactDOM: 'ReactDOM',
-        PropTypes: 'PropTypes',
-      },
+      external: ['react', 'react-dom'],
       plugins: [
         babel({
           exclude: 'node_modules/**',
@@ -125,7 +138,6 @@ function createCommonConfigByInput(input, fileName, umdName) {
 
 export default [
   ...createCommonConfigByInput('src/index.js', 'rsf-router', 'RsfRouter'),
-  ...createCommonConfigByInput('src/Router.js', 'router', 'Router'),
   ...createCommonConfigByInput(
     'src/BrowserRouter.js',
     'browser-router',
