@@ -34,7 +34,7 @@ class Router extends React.Component {
   }
 
   render() {
-    const { children } = this.props;
+    const { children, ...restProps } = this.props;
     //新增一个location.params
     const {
       location: { pathname },
@@ -47,7 +47,7 @@ class Router extends React.Component {
 
     return (
       <span>
-        {children}
+        {typeof children === 'function' ? children({ ...restProps }) : children}
         <Warnings />
       </span>
     );
@@ -56,7 +56,7 @@ class Router extends React.Component {
 // eslint-disable-next-line
 if (__DEV__) {
   Router.propTypes = {
-    children: PropTypes.node,
+    children: PropTypes.oneOfType([PropTypes.node, PropTypes.func]),
     history: PropTypes.object.isRequired,
   };
 

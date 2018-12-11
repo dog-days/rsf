@@ -17,7 +17,7 @@ class BrowserRouter extends React.Component {
 if (__DEV__) {
   BrowserRouter.propTypes = {
     basename: PropTypes.string,
-    children: PropTypes.node,
+    children: PropTypes.oneOfType([PropTypes.node, PropTypes.func]),
     forceRefresh: PropTypes.bool,
     getUserConfirmation: PropTypes.func,
     keyLength: PropTypes.number,

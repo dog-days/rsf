@@ -20,7 +20,7 @@ if (__DEV__) {
     initialIndex: PropTypes.number,
     getUserConfirmation: PropTypes.func,
     keyLength: PropTypes.number,
-    children: PropTypes.node,
+    children: PropTypes.oneOfType([PropTypes.node, PropTypes.func]),
   };
 
   MemoryRouter.prototype.componentDidMount = function() {

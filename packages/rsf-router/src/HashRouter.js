@@ -17,7 +17,7 @@ class HashRouter extends React.Component {
 if (__DEV__) {
   HashRouter.propTypes = {
     basename: PropTypes.string,
-    children: PropTypes.node,
+    children: PropTypes.oneOfType([PropTypes.node, PropTypes.func]),
     getUserConfirmation: PropTypes.func,
     hashType: PropTypes.oneOf(['hashbang', 'noslash', 'slash']),
   };
