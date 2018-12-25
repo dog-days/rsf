@@ -48,7 +48,7 @@ class Router extends React.Component {
     return (
       <span>
         {typeof children === 'function' ? children({ ...restProps }) : children}
-        <Warnings />
+        {Warnings && <Warnings />}
       </span>
     );
   }
