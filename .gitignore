@@ -5,9 +5,9 @@
 _book/
 node_modules/
 coverage/
-dist/
-lib/
-es/
+/dist
+/lib
+/es
 .DS_Store
 *.tar.gz
 *.tar
