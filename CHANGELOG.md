@@ -1,3 +1,18 @@
+## 0.0.5(2019-01-01)
+
+### Bug Fix
+
+无
+
+### Update
+
+无
+
+### New Function
+
+- rsf
+  - use redux-mutation-loading by default.
+
 ## 0.0.4(2019-01-01)
 
 ### Bug Fix
