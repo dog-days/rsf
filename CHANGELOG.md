@@ -1,3 +1,18 @@
+## 0.0.4(2019-01-01)
+
+### Bug Fix
+
+- rsf
+  - Fix axios throwing error bug after canceled.
+
+### Update
+
+无
+
+### New Function
+
+无
+
 ## 0.0.3(2018-12-25)
 
 ### Bug Fix
