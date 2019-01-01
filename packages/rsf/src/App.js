@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Provider } from 'react-redux';
 import { configCreateStore, applyPlugin } from 'redux-mutation';
+import createLoadingPlugin from 'redux-mutation-loading';
 
 class App extends React.Component {
   static displayName = 'RsfApp';
@@ -21,11 +22,10 @@ class App extends React.Component {
     this.store = store;
     if (!this.store && mutations) {
       // 没定义 props.store， 定义了 mutations。
-      this.store = configCreateStore(applyPlugin(...plugins), options)(
-        mutations,
-        initialState,
-        enhancer
-      );
+      this.store = configCreateStore(
+        applyPlugin(createLoadingPlugin(), ...plugins),
+        options
+      )(mutations, initialState, enhancer);
     }
   }
 
