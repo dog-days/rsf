@@ -37,11 +37,12 @@
     "prettier": "^1.13.2"
   },
   "scripts": {
-    "test": "",
+    "test": "lerna run test",
+    "build": "lerna run build",
     "cm": "git-cz",
     "postinstall": "node ./postinstall.js",
     "bootstrap": "lerna bootstrap --ignore-scripts",
-    "build-publish": "lerna publish",
+    "build-publish": "npm run build && npm run test && lerna publish",
     "prettier": "prettier --write './**/*(*.js|*.jsx|*.less|*.css)'",
     "rsf-basic": "npm run start --prefix examples/rsf-basic",
     "router-code-splitting": "npm run start --prefix examples/router-code-splitting",
