@@ -4,8 +4,8 @@ import { Table, Tag, Icon } from 'antd';
 import { Link } from 'rsf-router/lib/browser-router';
 import { reactAxiosCancelHOC } from 'rsf';
 
-import { LOADINGFIELDNAME } from '../../lib/mutation-loading-plugin';
-import { namespace as getUserListNamespace } from '../../mutations/api/getUserList';
+import { LOADINGNAMESPACE } from 'redux-mutation-loading';
+import { namespace as userListNamespace } from '../../mutations/api/getUserList';
 
 const { Column } = Table;
 
@@ -16,7 +16,7 @@ class HomeView extends React.Component {
 
   componentDidMount() {
     this.dispatch({
-      type: `${getUserListNamespace}/request`,
+      type: `${userListNamespace}/request`,
     });
   }
 
@@ -26,10 +26,11 @@ class HomeView extends React.Component {
 
   render() {
     const {
-      userListData: { [LOADINGFIELDNAME]: loading, data },
+      userListData: { data },
+      userListloading,
     } = this.props;
     return (
-      <Table dataSource={data} loading={loading}>
+      <Table dataSource={data} loading={userListloading}>
         <Column title="First Name" dataIndex="firstName" key="firstName" />
         <Column title="Last Name" dataIndex="lastName" key="lastName" />
         <Column title="Age" dataIndex="age" key="age" />
@@ -64,9 +65,10 @@ class HomeView extends React.Component {
 
 const ReduxComponent = connect(state => {
   return {
-    userListData: state[getUserListNamespace],
+    userListData: state[userListNamespace],
+    userListloading: state[LOADINGNAMESPACE][userListNamespace],
   };
 })(HomeView);
-const WithAxiosCancelComponent = reactAxiosCancelHOC([getUserListNamespace]);
+const WithAxiosCancelComponent = reactAxiosCancelHOC([userListNamespace]);
 
 export default WithAxiosCancelComponent(ReduxComponent);

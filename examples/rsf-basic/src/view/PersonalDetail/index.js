@@ -4,7 +4,7 @@ import { Comment, Avatar, Tooltip, Skeleton } from 'antd';
 import { reactAxiosCancelHOC } from 'rsf';
 import moment from 'moment';
 
-import { LOADINGFIELDNAME } from '../../lib/mutation-loading-plugin';
+import { LOADINGNAMESPACE } from 'redux-mutation-loading';
 import { namespace as userInfoNamespace } from '../../mutations/api/getUserInfo';
 
 class PersonalDetailView extends React.Component {
@@ -25,13 +25,13 @@ class PersonalDetailView extends React.Component {
   render() {
     const {
       userInfoData: {
-        [LOADINGFIELDNAME]: loading,
         data: { firstName, comment = [] },
       },
+      userInfoloading,
     } = this.props;
 
     return (
-      <Skeleton loading={loading} active avatar>
+      <Skeleton loading={userInfoloading} active avatar>
         {comment.map((c, k) => {
           return (
             <Comment
@@ -64,6 +64,7 @@ class PersonalDetailView extends React.Component {
 const ReduxComponent = connect(state => {
   return {
     userInfoData: state[userInfoNamespace],
+    userInfoloading: state[LOADINGNAMESPACE][userInfoNamespace],
   };
 })(PersonalDetailView);
 const WithAxiosCancelComponent = reactAxiosCancelHOC([userInfoNamespace]);
