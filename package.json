@@ -5,7 +5,6 @@
   "repository": "https://github.com/dog-days/rsf",
   "bugs": "https://github.com/dog-days/rsf/issues",
   "author": "xianshannan <xianshannan@qq.com>",
-  "description": "A koa style react framework.",
   "keywords": [
     "react",
     "framework",
