@@ -1,3 +1,18 @@
+## 0.0.6(2019-01-02)
+
+### Bug Fix
+
+无
+
+### Update
+
+- rsf
+  - use LOADINGNAMESPACE directly form rsf
+
+### New Function
+
+无
+
 ## 0.0.5(2019-01-01)
 
 ### Bug Fix
