@@ -2,9 +2,8 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { Table, Tag, Icon } from 'antd';
 import { Link } from 'rsf-router/lib/browser-router';
-import { reactAxiosCancelHOC } from 'rsf';
+import { reactAxiosCancelHOC, LOADINGNAMESPACE } from 'rsf';
 
-import { LOADINGNAMESPACE } from 'redux-mutation-loading';
 import { namespace as userListNamespace } from '../../mutations/api/getUserList';
 
 const { Column } = Table;

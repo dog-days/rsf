@@ -1,10 +1,9 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Comment, Avatar, Tooltip, Skeleton } from 'antd';
-import { reactAxiosCancelHOC } from 'rsf';
+import { reactAxiosCancelHOC, LOADINGNAMESPACE } from 'rsf';
 import moment from 'moment';
 
-import { LOADINGNAMESPACE } from 'redux-mutation-loading';
 import { namespace as userInfoNamespace } from '../../mutations/api/getUserInfo';
 
 class PersonalDetailView extends React.Component {
