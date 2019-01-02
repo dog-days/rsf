@@ -6,4 +6,5 @@ export {
 export { default as createAxios, axiosCancels } from './lib/createAxios';
 export { default as reactAxiosCancelHOC } from './lib/createAxios/reactCancel';
 export { App };
+export { LOADINGNAMESPACE } from 'redux-mutation-loading';
 export default App;
