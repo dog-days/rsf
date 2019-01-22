@@ -1,3 +1,18 @@
+## 0.1.0(2019-01-22)
+
+### Bug Fix
+
+无
+
+### Update
+
+无
+
+### New Function
+
+- rsf
+  - add responseAdapter config for axios util
+
 ## 0.0.6(2019-01-02)
 
 ### Bug Fix
