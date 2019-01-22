@@ -32,14 +32,24 @@ export const CODMESSAGE = {
 export class CustomAxios {
   constructor(config = {}) {
     this.config = config;
+
+    this.checkSomeConfig(config);
   }
 
+  /**
+   * 获取 axios axios.CancelToken.source()
+   */
   getCancelSource() {
-    var CancelToken = axios.CancelToken;
-    var source = CancelToken.source();
+    const CancelToken = axios.CancelToken;
+    const source = CancelToken.source();
+
     return source;
   }
 
+  /**
+   * 获取最终的 axios 配置，中途做了一些适配
+   * @param {Object} config 参考构造器 config
+   */
   getTheLastConfig(config = {}) {
     const newConfig = merge({}, this.config, config);
     newConfig.headers = {
@@ -48,9 +58,14 @@ export class CustomAxios {
       Pragma: 'no-cache',
       ...newConfig.headers,
     };
+
     return newConfig;
   }
 
+  /**
+   * 使用自定义的 responseText 替换默认的 reponseText。
+   * @param {Obejct} response axios response
+   */
   replaceNewStatusText(response) {
     const newStatusText = CODMESSAGE[response.status];
     if (newStatusText) {
@@ -60,14 +75,51 @@ export class CustomAxios {
     return response.statusText;
   }
 
+  /**
+   * 检测 this.config 中新增的配置类型是否合法
+   * @param {Object} config 参考构造器 config
+   */
+  checkSomeConfig(config) {
+    const { success, fail, responseAdapter } = config;
+
+    // eslint-disable-next-line
+    if (__DEV__) {
+      if (typeof success !== 'function' && success !== undefined) {
+        throw new TypeError('Expected the success config to be a function.');
+      }
+
+      if (typeof fail !== 'function' && fail !== undefined) {
+        throw new TypeError('Expected the fail config to be a function.');
+      }
+
+      if (
+        typeof responseAdapter !== 'function' &&
+        responseAdapter !== undefined
+      ) {
+        throw new TypeError(
+          'Expected the responseAdapter config to be a function.'
+        );
+      }
+    }
+  }
+
+  /**
+   * axios.request 的升级版，加多了 fail，success，responseAdapter 三个配置
+   * @param {Object} config 参考构造器 config
+   */
   request(config) {
     config = this.getTheLastConfig(config);
-    const { success, fail, ...axiosConfig } = config;
+    const { success, fail, responseAdapter, ...axiosConfig } = config;
+
     return axios
       .request(axiosConfig)
       .then(response => {
         success && success(response);
         response.statusText = this.replaceNewStatusText(response);
+
+        if (responseAdapter) {
+          return responseAdapter(response);
+        }
         return response;
       })
       .catch(error => {
@@ -107,6 +159,7 @@ export class CustomAxios {
 }
 
 export const axiosCancels = [];
+
 /**
  * 这里向外提供get、delete等直接使用的方式。
  * @param {object} config axios config，新增 success 、fail 回调 和 cancelNamepace
@@ -118,6 +171,7 @@ export default function(config) {
     ...config,
   };
   const fetch = new CustomAxios(config);
+
   function commonRequest(method, url, config) {
     // cancelNamepace默认为 url，不包括 baseURL
     const { cancelNamepace = url, ...restConfig } = config;
@@ -130,9 +184,11 @@ export default function(config) {
       url,
       cancelToken: cancelSource.token,
     });
+
     return request;
   }
   const methods = ['get', 'delete', 'head', 'options', 'post', 'put', 'patch'];
+
   methods.forEach(v => {
     switch (v) {
       case 'post':
@@ -148,5 +204,6 @@ export default function(config) {
         };
     }
   });
+
   return fetch;
 }
