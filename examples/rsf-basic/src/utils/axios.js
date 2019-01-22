@@ -14,8 +14,7 @@ const showErrorMessageDebounce = debounce(function(messageStr, callback) {
 const headers = Object.create(null, {
   Authorization: {
     get: function() {
-      // 这种模式可以是每次请求都获取最新的 token，在用户登录进来的时候必须重新获取 token (登录时时无 token的)
-      // 这里只是个例子
+      // getter 方式可以确保每次请求都可以从 cookie 中获取最新的 token
       return Math.random();
     },
     // 必须是可枚举的
