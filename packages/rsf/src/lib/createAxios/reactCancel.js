@@ -1,3 +1,5 @@
+import { LOADINGNAMESPACE } from 'redux-mutation-loading';
+
 /**
  * axios cancel 高阶组件，根据 cancel urls ，组件销毁时取消相关请求。
  * @param {array} cancelUrls
@@ -18,6 +20,8 @@ function cancelDecorator(cancelUrls = []) {
       cancelUrls.forEach(v => {
         dispatch({
           type: `${v}/cancelAxios`,
+          // 不触发 loading 插件
+          [LOADINGNAMESPACE]: false,
         });
       });
     };
