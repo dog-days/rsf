@@ -1,4 +1,4 @@
-## 0.1.0(2019-01-22)
+## 0.1.0(2019-02-14)
 
 ### Bug Fix
 
@@ -6,11 +6,13 @@
 
 ### Update
 
-无
+- rsf
+  - do not trigger the loading plugin
 
 ### New Function
 
 - rsf
+  - add request exception catching intercepted feature
   - add responseAdapter config for axios util
 
 ## 0.0.6(2019-01-02)
