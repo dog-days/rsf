@@ -32,8 +32,8 @@
     "prop-types": "^15.6.2",
     "react-redux": "^5.1.1",
     "redux": "^4.0.1",
-    "redux-mutation": "^0.0.9",
-    "redux-mutation-loading": "^0.0.9",
+    "redux-mutation": "^0.0.10",
+    "redux-mutation-loading": "^0.0.10",
     "rsf-router": "^0.1.0"
   },
   "devDependencies": {
