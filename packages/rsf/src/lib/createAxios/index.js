@@ -135,15 +135,8 @@ export class CustomAxios {
           //console.error(error.response);
           error[errorTypeName] = INVALIDESTATUSCODE;
           error.response.statusText = this.replaceNewStatusText(error.response);
-          if (fail) {
-            if (fail(error) === 'interrupt') {
-              // fail 函数可以通过返回 interrupt 字符串，打断 axios catch
-              // 场景一般用于权限验证 401、403 等状态吗，只需统一返回即可
-              throw error;
-            }
-          } else {
-            throw error;
-          }
+          fail && fail(error);
+          throw error;
         } else if (error.request) {
           //请求超时、跨域等无服务器响应的请求。
           // The request was made but no response was received
