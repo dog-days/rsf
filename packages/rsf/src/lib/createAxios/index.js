@@ -80,7 +80,7 @@ export class CustomAxios {
    * @param {Object} config 参考构造器 config
    */
   checkSomeConfig(config) {
-    const { success, fail, responseAdapter } = config;
+    const { success, fail } = config;
 
     // eslint-disable-next-line
     if (__DEV__) {
@@ -91,25 +91,16 @@ export class CustomAxios {
       if (typeof fail !== 'function' && fail !== undefined) {
         throw new TypeError('Expected the fail config to be a function.');
       }
-
-      if (
-        typeof responseAdapter !== 'function' &&
-        responseAdapter !== undefined
-      ) {
-        throw new TypeError(
-          'Expected the responseAdapter config to be a function.'
-        );
-      }
     }
   }
 
   /**
-   * axios.request 的升级版，加多了 fail，success，responseAdapter 三个配置
+   * axios.request 的升级版，加多了 fail，success 两个配置
    * @param {Object} config 参考构造器 config
    */
   request(config) {
     config = this.getTheLastConfig(config);
-    const { success, fail, responseAdapter, ...axiosConfig } = config;
+    const { success, fail, ...axiosConfig } = config;
 
     return axios
       .request(axiosConfig)
@@ -117,9 +108,6 @@ export class CustomAxios {
         success && success(response);
         response.statusText = this.replaceNewStatusText(response);
 
-        if (responseAdapter) {
-          return responseAdapter(response);
-        }
         return response;
       })
       .catch(error => {
