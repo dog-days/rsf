@@ -1,3 +1,18 @@
+## 0.2.0(2019-03-01)
+
+### Bug Fix
+
+nothing
+
+### Update
+
+- rsf
+  - delete the axios catch interrupt feature
+
+### New Function
+
+nothing
+
 ## 0.1.1(2019-03-01)
 
 ### Bug Fix
