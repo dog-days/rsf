@@ -1,8 +1,23 @@
+## 0.1.1(2019-03-01)
+
+### Bug Fix
+
+- rsf
+  - upgrade rsf and fix the same center name put error between two different mutation
+
+### Update
+
+nothing
+
+### New Function
+
+nothing
+
 ## 0.1.0(2019-02-14)
 
 ### Bug Fix
 
-无
+nothing
 
 ### Update
 
@@ -19,7 +34,7 @@
 
 ### Bug Fix
 
-无
+nothing
 
 ### Update
 
@@ -28,17 +43,17 @@
 
 ### New Function
 
-无
+nothing
 
 ## 0.0.5(2019-01-01)
 
 ### Bug Fix
 
-无
+nothing
 
 ### Update
 
-无
+nothing
 
 ### New Function
 
@@ -54,11 +69,11 @@
 
 ### Update
 
-无
+nothing
 
 ### New Function
 
-无
+nothing
 
 ## 0.0.3(2018-12-25)
 
@@ -74,19 +89,19 @@
 
 ### New Function
 
-无
+nothing
 
 ## 0.0.2(2018-12-11)
 
-首次发布
+first publish
 
 ### Bug Fix
 
-无
+nothing
 
 ### Update
 
-无
+nothing
 
 ### New Function
 
@@ -100,12 +115,12 @@
 
 ### Bug Fix
 
-无
+nothing
 
 ### Update
 
-无
+nothing
 
 ### New Function
 
-无
+nothing
