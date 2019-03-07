@@ -111,10 +111,6 @@ export class CustomAxios {
         return response;
       })
       .catch(error => {
-        if (axios.isCancel(error)) {
-          // 取消不算错误
-          return;
-        }
         const errorTypeName = '$type';
         if (error.response) {
           //请求成功，状态码不合法，默认只有 2xx，才是合法的。
