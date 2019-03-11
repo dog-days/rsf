@@ -1,3 +1,18 @@
+## 0.3.0(2019-03-07)
+
+### Bug Fix
+
+nothing
+
+### Update
+
+- rsf
+  - axios request canceled will throw error
+
+### New Function
+
+nothing
+
 ## 0.2.0(2019-03-01)
 
 ### Bug Fix
