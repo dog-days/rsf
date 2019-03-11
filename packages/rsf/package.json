@@ -1,5 +1,5 @@
 {
-  "version": "0.2.0",
+  "version": "0.3.0",
   "name": "rsf",
   "main": "lib/rsf.js",
   "jsnext:main": "es/rsf.js",
@@ -34,7 +34,7 @@
     "redux": "^4.0.1",
     "redux-mutation": "^0.0.10",
     "redux-mutation-loading": "^0.0.10",
-    "rsf-router": "^0.2.0"
+    "rsf-router": "^0.3.0"
   },
   "devDependencies": {
     "@babel/core": "^7.0.0",
