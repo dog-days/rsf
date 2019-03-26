@@ -1,7 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Provider } from 'react-redux';
-import { configCreateStore, applyPlugin } from 'redux-mutation';
+import { applyMiddleware } from 'redux';
+import { configCreateStore, applyPlugin, compose } from 'redux-mutation';
 import createLoadingPlugin from 'redux-mutation-loading';
 
 class App extends React.Component {
@@ -22,10 +23,16 @@ class App extends React.Component {
     this.store = store;
     if (!this.store && mutations) {
       // 没定义 props.store， 定义了 mutations。
+      const composeEnhancers =
+        window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
       this.store = configCreateStore(
         applyPlugin(createLoadingPlugin(), ...plugins),
         options
-      )(mutations, initialState, enhancer);
+      )(
+        mutations,
+        initialState,
+        composeEnhancers(applyMiddleware(...enhancer))
+      );
     }
   }
 
