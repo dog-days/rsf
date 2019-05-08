@@ -1,3 +1,17 @@
+## 0.4.0(2019-05-08)
+
+### Bug Fix
+
+nothing
+
+### Update
+
+nothing
+
+### New Function
+
+- 添加 redux devtool
+
 ## 0.3.0(2019-03-07)
 
 ### Bug Fix
